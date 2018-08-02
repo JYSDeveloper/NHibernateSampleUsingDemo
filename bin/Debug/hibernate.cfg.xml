@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+  <session-factory name="NHibernateTest">
+    <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+    <property name="connection.connection_string">
+      <!--数据库的用户名密码-->
+      server=localhost\JALEX;Database=TestDB;Persist Security Info=True;Integrated Security=SSPI;
+    </property>
+    <!--<property name="adonet.batch_size">10</property>-->
+    <!--是否显示sql语句-->
+    <property name="show_sql">true</property>
+
+    <!--数据库的方言-->
+    <property name="dialect">NHibernate.Dialect.MsSql2012Dialect</property>
+    <property name="command_timeout">60</property>
+    <!--数据库操作的方式-->
+    <property name="hbm2ddl.auto">update</property>
+    <!--找到对应的实体对象-->
+    <mapping assembly="Domain"/>
+    <event type="pre-insert">
+      <listener class="Domain.EventListener.PerInsertListener, Domain"/>
+    </event>
+    <event type="pre-update">
+      <listener class="Domain.EventListener.PerUpdateListener, Domain"/>
+    </event>
+  </session-factory>
+</hibernate-configuration>
